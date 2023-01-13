@@ -10,10 +10,12 @@ import {
   Post,
   Put,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 
 // @UseFilters(HttpExceptionFilter)
+// @UseInterceptors()
 @Controller('cats')
 export class CatsController {
   constructor(private readonly CatsService: CatsService) {}
@@ -30,7 +32,7 @@ export class CatsController {
   @Get(':id')
   getOneCat(@Param('id', ParseIntPipe) param: number) {
     console.log(param);
-    console.log(typeof param); //type지정 parseIntPipe
+    console.log(typeof param); //type지정 parseIntPipe -> 타입다르면 오류 (데이터유호성검사, 데이터 변환에 사용)
     return 'one cat';
   }
 
